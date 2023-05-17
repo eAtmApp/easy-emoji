@@ -4,4 +4,6 @@
 ![快照](screenshot-1.png)
 
 
+可以自己添加图片到image文件夹中
+
 该插件修改自:http://wordpress.org/extend/plugins/tinymce-smiley-button/
