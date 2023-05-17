@@ -4,7 +4,7 @@
  * Plugin Name: easy emoji
  * Description: 让TinyMCE支持添加表情图片.
  * Plugin URI: http://wordpress.org/extend/plugins/easy-emoji/
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: SilenceRet
  * Author URI: https://eatm.app/
  */
