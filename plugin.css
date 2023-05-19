@@ -1,6 +1,7 @@
 .mce-toolbar .mce-i-easy_emoji,
+.mce-i-easy_emoji,
 .dashicons-easy_emoji {
-    background: url(../../../wp-includes/images/smilies/simple-smile.png) no-repeat 50% 50%;
+    background: url(/wp-includes/images/smilies/simple-smile.png) no-repeat 50% 50%;
     background-size: contain;
 }
 
@@ -9,7 +10,7 @@
     margin-right: auto;
     font-size: 12px;
     background-color: #FFF;
-    margin: 5px;
+    padding: 5px;
     border: 1px solid gray;
 }
 
