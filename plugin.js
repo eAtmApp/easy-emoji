@@ -141,12 +141,10 @@ loadCSS();
 
     console.log("easy emoji script loaded");
 
-    tinymce.PluginManager && tinymce.PluginManager.add('easy_emoji', easy_emoji_mce_function);
-
-    if (isElementor()) {
-
+    if (typeof (tinymce) != 'undefined') {
+        tinymce.PluginManager.add('easy_emoji', easy_emoji_mce_function);
     }
-
+    
     /*     //新版块编辑器
         let plugin_name = "easy/emoji";
 

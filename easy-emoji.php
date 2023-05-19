@@ -44,7 +44,7 @@ function easy_script()
 
 
 
-function getImageJson()
+function get_image_json_url()
 {
 	$dirs = glob(plugin_dir_path(__FILE__) . 'image/*/', GLOB_ONLYDIR);
 
@@ -69,7 +69,11 @@ function getImageJson()
 			$result[$key]['names'][] = $filename;
 		}
 	}
-	return $result;
+
+	$dataStr='window.easy_emoji_json_data = ' . json_encode($result);
+	file_put_contents(plugin_dir_path(__FILE__).'/data.js', $dataStr);
+
+	return plugins_url('/data.js', __FILE__);
 }
 
 /* 
@@ -90,28 +94,22 @@ function mce_javascript($plugin_array)
 	$plugin_array['easy_emoji'] = plugins_url('/plugin.js', __FILE__); // 指定表情插件的 js 文件路径
 
 	//数据文件
-	$smilies = getImageJson();
-	$dataStr='window.easy_emoji_json_data = ' . json_encode($smilies);
-	file_put_contents(plugin_dir_path(__FILE__).'/data.js', $dataStr);
-	$plugin_array['easy_emoji_data'] = plugins_url('/data.js', __FILE__);
+	$plugin_array['easy_emoji_data'] = get_image_json_url();
 
 	return $plugin_array;
 }
 add_filter('mce_external_plugins', 'mce_javascript', 999, 1);
 
 
-
-
-
 function easy_emoji_clock_assets()
 {
 	$dependencies = array('react', 'wp-block-editor', 'wp-components', 'wp-element', 'wp-polyfill', 'wp-rich-text');
 	$version = "v1.0.0.1";
-
+	
 	// Enqueue scripts.
 	wp_enqueue_script(
 		'easy-emoji-block-script',
-		plugins_url('/plugin.js', __FILE__),
+		get_image_json_url(),
 		$dependencies,
 		$version,
 		true
@@ -121,17 +119,17 @@ function easy_emoji_clock_assets()
 	//wp_set_script_translations('easy-emoji-block-script', 'emoji-toolbar', plugin_dir_path(__FILE__) . '/languages/');
 
 	// Enqueue styles.
-	wp_enqueue_style(
+/* 	wp_enqueue_style(
 		'easy-emoji-block-script-style',
 		plugins_url('/plugin.css', __FILE__),
 		array(),
 		$version
-	);
+	); */
 
-	wp_localize_script('easy-emoji-json-data', 'my_data', array(
+/* 	wp_localize_script('easy-emoji-json-data', 'my_data', array(
 		'foo' => 'bar',
 		'baz' => 'qux'
-	));
+	)); */
 }
 
 add_action('enqueue_block_editor_assets', 'easy_emoji_clock_assets');
