@@ -4,7 +4,7 @@
  * Plugin Name: easy emoji
  * Description: 让TinyMCE支持添加表情图片.
  * Plugin URL: https://github.com/eAtmApp/easy-emoji/
- * Version: 1.0.2
+ * Version: 1.0.3
  * Author: SilenceRet
  * Author URI: https://eatm.app/
  */
@@ -23,12 +23,17 @@ function get_image_json_url()
 	$dirs = glob(plugin_dir_path(__FILE__) . 'image/*/', GLOB_ONLYDIR);
 
 	$result = [];
+  
+	$currentLocale = setlocale(LC_ALL,'zh_CN.UTF8');
+  
 	foreach ($dirs as $dir) {
+      
 		if (is_file($dir)) {
 			continue;
 		}
-
+      
 		$key = basename($dir);
+		
 		$result[$key] = [
 			'names' => [],
 			'url' => plugin_dir_url(__FILE__) . "image/" . $key  . "/"
@@ -43,7 +48,9 @@ function get_image_json_url()
 			$result[$key]['names'][] = $filename;
 		}
 	}
-
+	
+  	setlocale(LC_ALL,$currentLocale);
+  
 	$dataStr = 'window.easy_emoji_json_data = ' . json_encode($result);
 	file_put_contents(plugin_dir_path(__FILE__) . '/data.js', $dataStr);
 
